@@ -3,8 +3,8 @@ import cors from "cors";
 const ACCEPTED_ORIGINS = [
   "http://localhost:8080",
   "http://localhost:1234",
-  "sportup-back.railway.internal",
-  "https://sport.up.railway.app"
+  process.env.DOMAIN_DEV,
+  process.env.DOMAIN_PROD,
 ];
 
 export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
