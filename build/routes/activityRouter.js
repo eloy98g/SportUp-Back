@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.activityRouter = void 0;
+const express_1 = require("express");
+const activityController_ts_1 = require("../controllers/activityController.ts");
+exports.activityRouter = (0, express_1.Router)();
+exports.activityRouter.get("/:id", activityController_ts_1.ActivityController.getById);
+exports.activityRouter.get("/", activityController_ts_1.ActivityController.getAll);
+exports.activityRouter.post("/", activityController_ts_1.ActivityController.create);
+exports.activityRouter.patch("/:id", activityController_ts_1.ActivityController.update);
+exports.activityRouter.delete(":id/", activityController_ts_1.ActivityController.delete);
+exports.activityRouter.post("/:id/result", activityController_ts_1.ActivityController.createResult);
+exports.activityRouter.post("/:id/participation", activityController_ts_1.ActivityController.createParticipation);
+exports.activityRouter.get("/:id/participation", activityController_ts_1.ActivityController.getAllParticipation);
+exports.activityRouter.patch("/:id/resolve-participation/:id", activityController_ts_1.ActivityController.resolveParticipation);

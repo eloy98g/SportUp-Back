@@ -9,7 +9,7 @@ export class UserController {
     if (user) {
       return res.status(200).json(user);
     }
-    return res.status(404).json({ message: "Movie not found" });
+    return res.status(404).json({ message: "User not found" });
   }
 
   static async getAll(_req: Request, _res: Response) {}
