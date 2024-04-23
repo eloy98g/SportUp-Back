@@ -1,11 +1,14 @@
-import { createClient } from "@libsql/client";
-import "dotenv/config";
+import { connection } from "./dbConnection.ts";
 
-const DEFAULT_CONFIG = {
-  url: process.env.DATABASE_URL ?? "",
-  authToken: process.env.DATABASE_TOKEN ?? "",
-};
+export class UserModel {
+  static async getById({ id }: { id: string }) {
+    const { rows } = await connection.execute({
+      sql: `SELECT * FROM user WHERE gid = ?;`,
+      args: [id],
+    });
 
-const connection = await createClient(DEFAULT_CONFIG);
+    if (rows.length === 0) return null;
 
-export class UserModel {}
+    return rows[0];
+  }
+}

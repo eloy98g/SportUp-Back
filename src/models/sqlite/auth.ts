@@ -1,11 +1,10 @@
-import { createClient } from "@libsql/client";
-import "dotenv/config";
+// import { connection } from "./dbConnection.ts";
 
-const DEFAULT_CONFIG = {
-  url: process.env.DATABASE_URL ?? "",
-  authToken: process.env.DATABASE_TOKEN ?? "",
-};
-
-const connection = await createClient(DEFAULT_CONFIG);
-
-export class AuthyModel {}
+export class AuthModel {
+  // static async newUser(email: string, password: string) {
+  // const result = await connection.execute({
+  //   sql: "INSERT INTO USER (email, password) VALUES (?, ?)",
+  //   args: [email, password],
+  // });
+  // }
+}
