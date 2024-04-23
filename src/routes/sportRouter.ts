@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { SportController } from "../controllers/sportController.ts";
+import { SportController } from "../controllers/sportController";
 
 export const sportRouter = Router();
 

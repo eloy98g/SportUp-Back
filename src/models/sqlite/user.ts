@@ -1,4 +1,4 @@
-import { connection } from "./dbConnection.ts";
+import { connection } from "./dbConnection";
 
 export class UserModel {
   static async getById({ id }: { id: string }) {

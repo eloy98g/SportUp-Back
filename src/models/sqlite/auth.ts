@@ -1,4 +1,4 @@
-// import { connection } from "./dbConnection.ts";
+// import { connection } from "./dbConnection";
 
 export class AuthModel {
   // static async newUser(email: string, password: string) {
