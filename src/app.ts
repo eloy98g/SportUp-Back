@@ -1,14 +1,14 @@
 import express, { Application, json } from "express";
 
 // Middlewares
-import { corsMiddleware } from "./middlewares/cors.js";
+import { corsMiddleware } from "./middlewares/cors.ts";
 
 // Routes
-import { activityRouter } from "./routes/activityRouter.js";
-import { userRouter } from "./routes/userRouter.js";
-import { chatRouter } from "./routes/chatRouter.js";
-import { sportRouter } from "./routes/sportRouter.js";
-import { authRouter } from "./routes/authRouter.js";
+import { activityRouter } from "./routes/activityRouter.ts";
+import { userRouter } from "./routes/userRouter.ts";
+import { chatRouter } from "./routes/chatRouter.ts";
+import { sportRouter } from "./routes/sportRouter.ts";
+import { authRouter } from "./routes/authRouter.ts";
 
 const app: Application = express();
 export const PORT = process.env.PORT || 1234;
