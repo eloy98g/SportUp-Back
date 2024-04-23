@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models/sqlite/user";
+import { ResponseHandler } from "../utils/responseHandler";
 
 export class UserController {
   static async getById(req: Request, res: Response) {
@@ -7,9 +8,9 @@ export class UserController {
     const user = await UserModel.getById({ id });
 
     if (user) {
-      return res.status(200).json(user);
+      return ResponseHandler.handleSuccess(res, user);
     }
-    return res.status(404).json({ message: "User not found" });
+    return ResponseHandler.handleNotFound(res, "User not found");
   }
 
   static async getAll(_req: Request, _res: Response) {}
@@ -19,4 +20,5 @@ export class UserController {
   static async follow(_req: Request, _res: Response) {}
 
   static async unfollow(_req: Request, _res: Response) {}
+
 }
