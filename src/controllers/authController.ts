@@ -5,13 +5,17 @@ import { ResponseHandler } from "../utils/responseHandler";
 import NewUser from "../types/auth/NewUser";
 import Credential from "../types/auth/Credential";
 import getPasswordHash from "../utils/getPasswordHash";
+import getParsedValidationError from "../utils/getParsedValidationError";
 
 export class AuthController {
   static async newUser(req: Request, res: Response) {
     const result = validateCredentials(req.body);
 
     if (!result.success) {
-      return res.status(400).json({ message: result.error.errors });
+      return ResponseHandler.handleNotFound(
+        res,
+        getParsedValidationError(result.error.errors)
+      );
     }
 
     const input: NewUser = {
@@ -35,15 +39,9 @@ export class AuthController {
   }
 
   static async signin(req: Request, res: Response) {
-    const result = validateCredentials(req.body);
-
-    if (!result.success) {
-      return res.status(400).json({ message: result.error.errors });
-    }
-
     const input: Credential = {
-      email: result.data.email,
-      password: getPasswordHash(result.data.password),
+      email: req.body.email || "",
+      password: getPasswordHash(req.body.password) || "",
     };
 
     const user = await AuthModel.signin(input);
