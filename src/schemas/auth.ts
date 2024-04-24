@@ -20,7 +20,3 @@ const authSchema = z.object({
 export function validateCredentials(input: any) {
   return authSchema.safeParse(input);
 }
-
-export function validatePartialCredential(input: any) {
-  return authSchema.partial().safeParse(input);
-}
