@@ -26,23 +26,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PORT = void 0;
 const express_1 = __importStar(require("express"));
 // Middlewares
-const cors_ts_1 = require("./middlewares/cors.js");
+const cors_1 = require("./middlewares/cors");
 // Routes
-const activityRouter_ts_1 = require("./routes/activityRouter.js");
-const userRouter_ts_1 = require("./routes/userRouter.js");
-const chatRouter_ts_1 = require("./routes/chatRouter.js");
-const sportRouter_ts_1 = require("./routes/sportRouter.js");
-const authRouter_ts_1 = require("./routes/authRouter.js");
+const activityRouter_1 = require("./routes/activityRouter");
+const userRouter_1 = require("./routes/userRouter");
+const chatRouter_1 = require("./routes/chatRouter");
+const sportRouter_1 = require("./routes/sportRouter");
+const authRouter_1 = require("./routes/authRouter");
 const app = (0, express_1.default)();
 exports.PORT = process.env.PORT || 1234;
 app.use((0, express_1.json)());
-app.use((0, cors_ts_1.corsMiddleware)());
+app.use((0, cors_1.corsMiddleware)());
 app.disable("x-powered-by");
-app.use("/auth", authRouter_ts_1.authRouter);
-app.use("/user", userRouter_ts_1.userRouter);
-app.use("/activity", activityRouter_ts_1.activityRouter);
-app.use("/chat", chatRouter_ts_1.chatRouter);
-app.use("/sport", sportRouter_ts_1.sportRouter);
+app.use("/auth", authRouter_1.authRouter);
+app.use("/user", userRouter_1.userRouter);
+app.use("/activity", activityRouter_1.activityRouter);
+app.use("/chat", chatRouter_1.chatRouter);
+app.use("/sport", sportRouter_1.sportRouter);
 app.listen(exports.PORT, () => {
     console.log(`server listening on http://localhost:${exports.PORT}`);
 });

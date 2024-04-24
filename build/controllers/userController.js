@@ -10,9 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const user_1 = require("../models/sqlite/user");
+const responseHandler_1 = require("../utils/responseHandler");
 class UserController {
-    static getById(_req, _res) {
-        return __awaiter(this, void 0, void 0, function* () { });
+    static getById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const user = yield user_1.UserModel.getById({ id });
+            if (user) {
+                return responseHandler_1.ResponseHandler.handleSuccess(res, user);
+            }
+            return responseHandler_1.ResponseHandler.handleNotFound(res, "User not found");
+        });
     }
     static getAll(_req, _res) {
         return __awaiter(this, void 0, void 0, function* () { });
