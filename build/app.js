@@ -26,13 +26,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PORT = void 0;
 const express_1 = __importStar(require("express"));
 // Middlewares
-const cors_ts_1 = require("./middlewares/cors.ts");
+const cors_ts_1 = require("./middlewares/cors.js");
 // Routes
-const activityRouter_ts_1 = require("./routes/activityRouter.ts");
-const userRouter_ts_1 = require("./routes/userRouter.ts");
-const chatRouter_ts_1 = require("./routes/chatRouter.ts");
-const sportRouter_ts_1 = require("./routes/sportRouter.ts");
-const authRouter_ts_1 = require("./routes/authRouter.ts");
+const activityRouter_ts_1 = require("./routes/activityRouter.js");
+const userRouter_ts_1 = require("./routes/userRouter.js");
+const chatRouter_ts_1 = require("./routes/chatRouter.js");
+const sportRouter_ts_1 = require("./routes/sportRouter.js");
+const authRouter_ts_1 = require("./routes/authRouter.js");
 const app = (0, express_1.default)();
 exports.PORT = process.env.PORT || 1234;
 app.use((0, express_1.json)());
