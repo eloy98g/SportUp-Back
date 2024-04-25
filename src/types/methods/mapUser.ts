@@ -1,4 +1,4 @@
-import { User } from "../User";
+import { User } from "../user/User";
 import mapLocation from "./mapLocation";
 
 const mapUser = (data: any): User => {
