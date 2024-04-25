@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { validateCredentials } from "../schemas/auth";
-import { AuthModel } from "../models/sqlite/auth";
+import { AuthModel } from "../models/auth";
 import { ResponseHandler } from "../utils/responseHandler";
 import NewUser from "../types/auth/NewUser";
 import Credential from "../types/auth/Credential";

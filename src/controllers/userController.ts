@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserModel } from "../models/sqlite/user";
+import { UserModel } from "../models/user";
 import { ResponseHandler } from "../utils/responseHandler";
 
 export class UserController {
