@@ -2,6 +2,7 @@ import { User } from "../user/User";
 import mapLocation from "./mapLocation";
 
 const mapUser = (data: any): User => {
+  console.log('datadatadata',data)
   const newUser: User = {
     email: data?.email || "",
     name: data?.name || "",
@@ -9,7 +10,7 @@ const mapUser = (data: any): User => {
     phone: data?.phone || "",
     image: data?.image || "",
     description: data?.description || "",
-    location: mapLocation(data?.location),
+    location: mapLocation(data),
     birthDate: data?.birthDate || 0,
     creationDate: data?.creationDate || 0,
     phoneVerified: data?.phoneVerified || false,

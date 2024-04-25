@@ -3,6 +3,8 @@ import Score from "./Score";
 import Team from "./Team";
 import Sport from "../Sport";
 
+export type SortBy = "recent" | "numPlayers" | "closest";
+export type PriceSlot = "0€" | "1€-5€" | "5€-10€" | "10€-15€" | "15€";
 export type ActivityType = "normal" | "competitive";
 export type ActivityAccess = "open" | "closed";
 export type ActivityVisibility = "public" | "private";

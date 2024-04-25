@@ -11,6 +11,7 @@ export class AuthController {
   static async newUser(req: Request, res: Response) {
     const result = validateCredentials(req.body);
 
+    console.log("result", result);
     if (!result.success) {
       return ResponseHandler.handleNotFound(
         res,

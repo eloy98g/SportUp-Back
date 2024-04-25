@@ -1,4 +1,4 @@
-import { Location } from "../Location";
+import Location from "../Location";
 
 const mapLocation = (data: any): Location => {
   const newLocation: Location = {
