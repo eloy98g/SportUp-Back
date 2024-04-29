@@ -1,5 +1,5 @@
-import { User } from "../../types";
-import mapUser from "../../types/methods/mapUser";
+import { User } from "../types";
+import mapUser from "../types/methods/mapUser";
 import { connection } from "./dbConnection";
 
 export class UserModel {

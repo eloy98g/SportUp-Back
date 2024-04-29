@@ -1,6 +1,6 @@
-import Credential from "../../types/auth/Credential";
-import NewUser from "../../types/auth/NewUser";
-import mapUser from "../../types/methods/mapUser";
+import Credential from "../types/auth/Credential";
+import NewUser from "../types/auth/NewUser";
+import mapUser from "../types/methods/mapUser";
 import { connection } from "./dbConnection";
 
 export class AuthModel {

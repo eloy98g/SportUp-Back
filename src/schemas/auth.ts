@@ -12,7 +12,7 @@ const authSchema = z.object({
   password: z
     .string({
       invalid_type_error: "Invalid password",
-      required_error: "Email is required.",
+      required_error: "Password is required.",
     })
     .min(8),
 });
