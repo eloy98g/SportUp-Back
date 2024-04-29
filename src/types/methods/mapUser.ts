@@ -1,4 +1,4 @@
-import { User } from "../User";
+import { User } from "../user/User";
 import mapLocation from "./mapLocation";
 
 const mapUser = (data: any): User => {
@@ -9,7 +9,7 @@ const mapUser = (data: any): User => {
     phone: data?.phone || "",
     image: data?.image || "",
     description: data?.description || "",
-    location: mapLocation(data?.location),
+    location: mapLocation(data),
     birthDate: data?.birthDate || 0,
     creationDate: data?.creationDate || 0,
     phoneVerified: data?.phoneVerified || false,
