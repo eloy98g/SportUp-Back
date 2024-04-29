@@ -1,3 +1,4 @@
+import mapActivity from "../types/activity/methods/mapActivity";
 import getPrice from "../utils/getPrice";
 import { connection } from "./dbConnection";
 
@@ -22,11 +23,12 @@ export class ActivityModel {
       sql: `SELECT a.*, c.gid AS chat, l.*,
         (SELECT 
           json_group_array(json_object(
-              'gid', t.gid, 
+              'gid', CAST(t.gid AS UNSIGNED),
+              'name', t.name,
               'players', 
                   (SELECT 
                     json_group_array(json_object(
-                      'gid', u.gid,
+                      'gid', CAST(u.gid AS UNSIGNED),
                       'name', u.name,
                       'image', u.image
                   )) 
@@ -40,7 +42,7 @@ export class ActivityModel {
       (SELECT 
       json_group_array(
           json_object(
-              'gid', s.gid,
+              'gid', CAST(s.gid AS UNSIGNED),
               'team', t.name,
               'points', s.points,
               'position', s.position
@@ -77,6 +79,7 @@ export class ActivityModel {
 
     if (rows.length === 0) return [];
 
-    return rows;
+    const parsedRows = rows.map((row: any) => mapActivity(row));
+    return parsedRows;
   }
 }

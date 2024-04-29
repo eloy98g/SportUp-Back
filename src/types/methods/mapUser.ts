@@ -2,7 +2,6 @@ import { User } from "../user/User";
 import mapLocation from "./mapLocation";
 
 const mapUser = (data: any): User => {
-  console.log('datadatadata',data)
   const newUser: User = {
     email: data?.email || "",
     name: data?.name || "",
