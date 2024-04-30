@@ -3,6 +3,8 @@ import { SportController } from "../controllers/sportController";
 
 export const sportRouter = Router();
 
+sportRouter.get("/", SportController.getAll);
+
 sportRouter.post("/:id/favorite", SportController.favorite);
 
 sportRouter.post("/:id/unfavorite", SportController.unfavorite);
