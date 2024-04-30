@@ -20,7 +20,7 @@ export class ActivityModel {
         : "";
 
     const { rows } = await connection.execute({
-      sql: `SELECT a.*, c.gid AS chat, l.*, sp.gid AS sportGid, sp.name AS sportName, sp.icon AS sportIcon, sp.image AS sportImage,
+      sql: `SELECT a.*, c.gid AS chat, l.*, sp.gid AS sportGid, sp.name AS sportName, sp.icon_white AS sportIconWhite, sp.icon_black AS sportIconBlack, sp.image AS sportImage,
         (SELECT 
           json_group_array(json_object(
               'gid', t.gid,

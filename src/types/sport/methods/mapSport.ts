@@ -4,7 +4,7 @@ const mapSport = (data: any): Sport => {
   const newSport: Sport = {
     gid: data?.sportGid,
     name: data?.sportName,
-    icon: data?.sportIcon,
+    icons: { black: data?.sportIconBlack, white: data?.sportIconWhite },
     image: data?.sportImage,
   };
   return newSport;
