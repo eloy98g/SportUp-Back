@@ -50,6 +50,7 @@ export class ActivityModel {
       price = null,
       status = null,
       type = null,
+      visibility= null,
       sports = [],
     } = input;
 
@@ -66,6 +67,7 @@ export class ActivityModel {
         AND (? is NULL OR (a.price >= ? AND a.price <= ?))
         AND (? IS NULL OR a.status = ?)
         AND (? IS NULL OR a.type = ?)
+        AND (? IS NULL OR a.visibility = ?)
         ${sportsArray};`,
       args: [
         admin,
@@ -79,6 +81,8 @@ export class ActivityModel {
         status,
         type,
         type,
+        visibility,
+        visibility,
         ...sports,
       ],
     });
