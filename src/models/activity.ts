@@ -2,7 +2,9 @@ import mapActivity from "../types/activity/methods/mapActivity";
 import getPrice from "../utils/getPrice";
 import { connection } from "./dbConnection";
 
-const baseActivityQuery = `SELECT a.*, c.gid AS chat, l.*,sp.gid AS sportGid, sp.name AS sportName, sp.icon_white AS sportIconWhite, sp.icon_black AS sportIconBlack, sp.image AS sportImage,
+const baseActivityQuery = `
+  SELECT a.*, c.gid AS chat, l.*,
+  sp.gid AS sportGid, sp.name AS sportName, sp.icon_white AS sportIconWhite, sp.icon_black AS sportIconBlack, sp.image AS sportImage,
   ua.gid AS adminGid, ua.name AS adminName, ua.image AS adminImage,
   (SELECT 
     json_group_array(json_object(
@@ -19,8 +21,8 @@ const baseActivityQuery = `SELECT a.*, c.gid AS chat, l.*,sp.gid AS sportGid, sp
             JOIN user u ON ut.userGid = u.gid
             WHERE t.gid = ut.teamGid)
     ))
-  FROM team t 
-  WHERE t.activityGid = a.gid) AS teamPlayers,
+    FROM team t 
+    WHERE t.activityGid = a.gid) AS teamPlayers,
   (SELECT 
   json_group_array(
     json_object(
@@ -35,9 +37,10 @@ const baseActivityQuery = `SELECT a.*, c.gid AS chat, l.*,sp.gid AS sportGid, sp
   WHERE s.activityGid = a.gid) AS result
   FROM  activity a
   LEFT JOIN chat c ON a.gid = c.activityGid
-  LEFT JOIN user ua ON a.gid = a.admin
   LEFT JOIN location_activity l ON a.gid = l.activityGid
-  LEFT JOIN sport sp ON a.sportGid = sp.gid`;
+  LEFT JOIN sport sp ON a.sportGid = sp.gid
+  LEFT JOIN user ua ON a.admin = ua.gid
+  `;
 
 export class ActivityModel {
   static async getAll(input: any) {
