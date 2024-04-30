@@ -25,3 +25,8 @@ const activitySchema = z.object({
 export function validateActivityParameters(input: any) {
   return activitySchema.safeParse(input);
 }
+
+const acitivityGidSchema = z.string();
+export function validateActivityGid(input: any) {
+  return acitivityGidSchema.safeParse(input);
+}
