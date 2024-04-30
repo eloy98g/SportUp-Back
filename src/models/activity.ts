@@ -20,15 +20,15 @@ export class ActivityModel {
         : "";
 
     const { rows } = await connection.execute({
-      sql: `SELECT a.*, c.gid AS chat, l.*,
+      sql: `SELECT a.*, c.gid AS chat, l.*, sp.gid AS sportGid, sp.name AS sportName, sp.icon AS sportIcon, sp.image AS sportImage,
         (SELECT 
           json_group_array(json_object(
-              'gid', CAST(t.gid AS UNSIGNED),
+              'gid', t.gid,
               'name', t.name,
               'players', 
                   (SELECT 
                     json_group_array(json_object(
-                      'gid', CAST(u.gid AS UNSIGNED),
+                      'gid', u.gid,
                       'name', u.name,
                       'image', u.image
                   )) 
@@ -42,7 +42,7 @@ export class ActivityModel {
       (SELECT 
       json_group_array(
           json_object(
-              'gid', CAST(s.gid AS UNSIGNED),
+              'gid',s.gid,
               'team', t.name,
               'points', s.points,
               'position', s.position
@@ -55,6 +55,7 @@ export class ActivityModel {
       FROM  activity a
       LEFT JOIN chat c ON a.gid = c.activityGid
       LEFT JOIN location_activity l ON a.gid = l.activityGid
+      LEFT JOIN sport sp ON a.sportGid = sp.gid
       WHERE (? IS NULL OR a.admin = ?)
       AND (? IS NULL OR a.gid IN (SELECT ut.activityGid FROM user_team ut WHERE ut.userGid = ?))
       AND (? is NULL OR (a.price >= ? AND a.price <= ?))
