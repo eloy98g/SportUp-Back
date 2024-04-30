@@ -3,6 +3,7 @@ import mapLocation from "../../methods/mapLocation";
 import mapTeams from "./mapTeams";
 import mapResults from "./mapResults";
 import mapSport from "../../sport/methods/mapSport";
+import mapAdmin from "./mapAdmin";
 
 const mapActivity = (data: any): Activity => {
   const newUser: Activity = {
@@ -12,7 +13,7 @@ const mapActivity = (data: any): Activity => {
     creationDate: data?.creationDate || "",
     startDate: data?.startDate || 0,
     duration: data?.duration || 0,
-    admin: data?.admin || "",
+    admin: mapAdmin(data),
     access: data?.access || "open",
     type: data?.type || "normal",
     price: data?.price || 0,

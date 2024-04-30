@@ -1,7 +1,7 @@
 import Player from "../user/Player";
 
 type Team = {
-  gid: number;
+  gid: string;
   name: string;
   players: Player[];
 };

@@ -1,7 +1,7 @@
 import Location from "../Location";
 
 export interface User {
-  gid: number;
+  gid: string;
   name?: string;
   email: string;
   phone?: number;

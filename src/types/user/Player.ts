@@ -1,5 +1,5 @@
 interface Player {
-  gid: number;
+  gid: string;
   name: string;
   image: string;
 }

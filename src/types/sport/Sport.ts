@@ -1,5 +1,5 @@
 export default interface Sport {
-  gid: number;
+  gid: string;
   name: string;
   icons: { black: string; white: string };
   image: string;
