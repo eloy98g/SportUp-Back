@@ -15,7 +15,7 @@ const PriceEnum = z.enum(["0€", "1€-5€", "5€-10€", "10€-15€", "15�
 const activitySchema = z.object({
   visibility: VisibilityEnum.optional(),
   type: TypeEnum.optional(),
-  status: StatusEnum.optional(),
+  status: z.array(StatusEnum).nonempty().optional(),
   sports: z.array(z.string()).nonempty().optional(),
   userGid: z.string().optional(),
   admin: z.string().optional(),

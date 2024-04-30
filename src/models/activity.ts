@@ -48,7 +48,7 @@ export class ActivityModel {
       admin = null,
       userGid = null,
       price = null,
-      status = null,
+      status = [],
       type = null,
       visibility= null,
       sports = [],
@@ -59,15 +59,20 @@ export class ActivityModel {
       sports.length > 0
         ? `AND sportGid IN (${sports.map(() => "?").join(",")})`
         : "";
+    
+    const statusArray =
+    status.length > 0
+        ? `AND status IN (${status.map(() => "?").join(",")})`
+        : "";
 
     const { rows } = await connection.execute({
       sql: `${baseActivityQuery}
         WHERE (? IS NULL OR a.admin = ?)
         AND (? IS NULL OR a.gid IN (SELECT ut.activityGid FROM user_team ut WHERE ut.userGid = ?))
         AND (? is NULL OR (a.price >= ? AND a.price <= ?))
-        AND (? IS NULL OR a.status = ?)
         AND (? IS NULL OR a.type = ?)
         AND (? IS NULL OR a.visibility = ?)
+        ${statusArray}
         ${sportsArray};`,
       args: [
         admin,
@@ -77,12 +82,11 @@ export class ActivityModel {
         price,
         realPrice?.min,
         realPrice?.max,
-        status,
-        status,
         type,
         type,
         visibility,
         visibility,
+        ...status,
         ...sports,
       ],
     });
