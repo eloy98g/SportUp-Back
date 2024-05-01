@@ -6,8 +6,8 @@ const mapLocation = (data: any): Location => {
     longitude: data?.longitude || null,
     latitudeDelta: data?.latitudeDelta,
     longitudeDelta: data?.latitudeDelta,
-    address: data?.latitudeDelta,
-    radius: data?.latitudeDelta,
+    address: data?.address,
+    radius: data?.radius,
   };
   return newLocation;
 };

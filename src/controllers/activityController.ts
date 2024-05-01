@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  validateActivity,
   validateActivityGid,
   validateActivityParameters,
 } from "../schemas/activity";
@@ -29,8 +30,6 @@ export class ActivityController {
   static async getById(req: Request, res: Response) {
     const { id } = req.params;
     const result = validateActivityGid(id);
-    console.log('getById',id)
-    console.log('result,',result)
 
     if (!result.success) {
       return ResponseHandler.handleNotFound(
@@ -47,11 +46,44 @@ export class ActivityController {
     return ResponseHandler.handleNotFound(res, "Error fetching activity.");
   }
 
-  static async create(_req: Request, _res: Response) {}
+  static async create(req: Request, res: Response) {
+    const result = validateActivity(req.body);
+
+    if (!result.success) {
+      return ResponseHandler.handleNotFound(
+        res,
+        getParsedValidationError(result.error.errors)
+      );
+    }
+
+    const activity = await ActivityModel.create(result.data);
+
+    if (activity) {
+      return ResponseHandler.handleSuccess(res, activity);
+    }
+    return ResponseHandler.handleNotFound(res, "Error creating activity.");
+  }
 
   static async update(_req: Request, _res: Response) {}
 
-  static async delete(_req: Request, _res: Response) {}
+  static async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = validateActivityGid(id);
+
+    if (!result.success) {
+      return ResponseHandler.handleNotFound(
+        res,
+        getParsedValidationError(result.error.errors)
+      );
+    }
+
+    const activity = await ActivityModel.delete(result.data);
+
+    if (activity) {
+      return ResponseHandler.handleSuccess(res, activity);
+    }
+    return ResponseHandler.handleNotFound(res, "Error deleting activity.");
+  }
 
   static async createResult(_req: Request, _res: Response) {}
 

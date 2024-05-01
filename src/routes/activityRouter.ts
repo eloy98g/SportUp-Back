@@ -11,7 +11,7 @@ activityRouter.post("/", ActivityController.create);
 
 activityRouter.patch("/:id", ActivityController.update);
 
-activityRouter.delete(":id/", ActivityController.delete);
+activityRouter.delete("/:id", ActivityController.delete);
 
 activityRouter.post("/:id/result", ActivityController.createResult);
 

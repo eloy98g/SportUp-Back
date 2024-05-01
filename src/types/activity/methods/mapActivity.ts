@@ -6,7 +6,7 @@ import mapSport from "../../sport/methods/mapSport";
 import mapAdmin from "./mapAdmin";
 
 const mapActivity = (data: any): Activity => {
-  const newUser: Activity = {
+  const newActivity: Activity = {
     gid: data?.gid || "",
     location: mapLocation(data),
     visibility: data?.visibility || "",
@@ -23,11 +23,12 @@ const mapActivity = (data: any): Activity => {
     playersPerTeam: data?.playersPerTeam || 0,
     status: data?.status || "draft",
     chat: data?.chat || 0,
+    code: data?.code || "",
     teams: mapTeams(data),
     result: mapResults(data),
   };
 
-  return newUser;
+  return newActivity;
 };
 
 export default mapActivity;

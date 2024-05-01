@@ -36,4 +36,5 @@ export default interface Activity {
   teams: Team[];
   result: Score[];
   chat: number;
+  code: string;
 }
