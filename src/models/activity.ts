@@ -152,7 +152,7 @@ export class ActivityModel {
         description,
         name,
         code,
-        status
+        status,
       ],
     });
 
@@ -182,5 +182,57 @@ export class ActivityModel {
       return true;
     }
     return null;
+  }
+
+  static async update(gid: string, input: any) {
+    let setClause = Object.keys(input)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+
+    let sql = `UPDATE activity SET ${setClause} WHERE gid = ?`;
+
+    let args: any = [...Object.values(input), gid];
+    const { rowsAffected } = await connection.execute({
+      sql,
+      args,
+    });
+
+    if (rowsAffected > 0) {
+      return ActivityModel.getById(gid);
+    }
+
+    return false;
+  }
+
+  static async updateTeams(gid: string, input: any) {
+    try {
+      const promises = input.teams.map(async (team: any) => {
+        const { teamGid, players } = team;
+
+        const playerPromises = players.map(async (playerGid: string) => {
+          const sql = `UPDATE user_team SET teamGid = ? WHERE userGid = ? AND activityGid = ?;`;
+
+          const { rowsAffected } = await connection.execute({
+            sql,
+            args: [teamGid, playerGid, gid],
+          });
+
+          if (rowsAffected === 0) {
+            throw new Error(
+              `No se pudo actualizar: Equipo: ${teamGid}, Jugador: ${playerGid}, Actividad: ${gid}`
+            );
+          }
+        });
+
+        await Promise.all(playerPromises);
+      });
+
+      await Promise.all(promises);
+
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 }
