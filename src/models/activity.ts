@@ -152,7 +152,7 @@ export class ActivityModel {
         description,
         name,
         code,
-        status
+        status,
       ],
     });
 
@@ -182,5 +182,25 @@ export class ActivityModel {
       return true;
     }
     return null;
+  }
+
+  static async update(gid: string, input: any) {
+    let setClause = Object.keys(input)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+
+    let sql = `UPDATE activity SET ${setClause} WHERE gid = ?`;
+
+    let args: any = [...Object.values(input), gid];
+    const { rowsAffected } = await connection.execute({
+      sql,
+      args,
+    });
+
+    if (rowsAffected > 0) {
+      return ActivityModel.getById(gid);
+    }
+
+    return false;
   }
 }

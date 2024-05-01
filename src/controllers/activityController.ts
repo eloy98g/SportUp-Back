@@ -3,6 +3,7 @@ import {
   validateActivity,
   validateActivityGid,
   validateActivityParameters,
+  validateEditActivity,
 } from "../schemas/activity";
 import { ResponseHandler } from "../utils/responseHandler";
 import getParsedValidationError from "../utils/getParsedValidationError";
@@ -64,7 +65,23 @@ export class ActivityController {
     return ResponseHandler.handleNotFound(res, "Error creating activity.");
   }
 
-  static async update(_req: Request, _res: Response) {}
+  static async update(req: Request, res: Response) {
+    const result = validateEditActivity(req.body);
+    const { id } = req.params;
+    if (!result.success) {
+      return ResponseHandler.handleNotFound(
+        res,
+        getParsedValidationError(result.error.errors)
+      );
+    }
+
+    const activity = await ActivityModel.update(id, result.data);
+
+    if (activity) {
+      return ResponseHandler.handleSuccess(res, activity);
+    }
+    return ResponseHandler.handleNotFound(res, "Error creating activity.");
+  }
 
   static async delete(req: Request, res: Response) {
     const { id } = req.params;
