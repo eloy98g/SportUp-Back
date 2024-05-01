@@ -15,7 +15,6 @@ export class SportModel {
 
     if (rows.length === 0) return null;
 
-    console.log("rows", rows);
     const user = rows.map((row) => mapSport(row));
 
     return user;

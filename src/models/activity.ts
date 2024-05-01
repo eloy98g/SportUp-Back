@@ -1,6 +1,8 @@
 import mapActivity from "../types/activity/methods/mapActivity";
 import getPrice from "../utils/getPrice";
+import { v4 as uuidv4 } from "uuid";
 import { connection } from "./dbConnection";
+import generateActivityCode from "../utils/generateActivityCode";
 
 const baseActivityQuery = `
   SELECT a.*, c.gid AS chat, l.*,
@@ -50,7 +52,7 @@ export class ActivityModel {
       price = null,
       status = [],
       type = null,
-      visibility= null,
+      visibility = null,
       sports = [],
     } = input;
 
@@ -59,9 +61,9 @@ export class ActivityModel {
       sports.length > 0
         ? `AND sportGid IN (${sports.map(() => "?").join(",")})`
         : "";
-    
+
     const statusArray =
-    status.length > 0
+      status.length > 0
         ? `AND status IN (${status.map(() => "?").join(",")})`
         : "";
 
@@ -106,5 +108,79 @@ export class ActivityModel {
 
     const activity = mapActivity(rows[0]);
     return activity;
+  }
+
+  static async create(input: any) {
+    const {
+      userGid,
+      sport,
+      name,
+      teams,
+      playersPerTeam,
+      access,
+      visibility,
+      type,
+      price,
+      lat,
+      lng,
+      address,
+      dateStart,
+      duration,
+      description,
+    } = input;
+
+    const gid = uuidv4();
+    const creationDate = Date.now();
+    const status = "pending";
+    const code = generateActivityCode();
+
+    const { rowsAffected: creation } = await connection.execute({
+      sql: `INSERT INTO activity (gid, admin, sportGid, creationDate, teams, playersPerTeam, access, visibility, type, price, dateStart, duration, description, name, code, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+      args: [
+        gid,
+        userGid,
+        sport,
+        creationDate,
+        teams,
+        playersPerTeam,
+        access,
+        visibility,
+        type,
+        price,
+        dateStart,
+        duration,
+        description,
+        name,
+        code,
+        status
+      ],
+    });
+
+    const { rowsAffected: locationCreated } = await connection.execute({
+      sql: `UPDATE location_activity
+            SET latitude = ?,
+                longitude = ?,
+                address  = ?
+            WHERE activityGid = ?;`,
+      args: [lat, lng, address || null, gid],
+    });
+
+    const activity = ActivityModel.getById(gid);
+
+    if (activity && creation && locationCreated) return activity;
+
+    return false;
+  }
+
+  static async delete(gid: string) {
+    const result = await connection.execute({
+      sql: "DELETE FROM activity WHERE gid = ?;",
+      args: [gid],
+    });
+
+    if (result.rowsAffected > 0) {
+      return true;
+    }
+    return null;
   }
 }
