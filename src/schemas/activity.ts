@@ -60,6 +60,7 @@ const editSchema = z.object({
   visibility: VisibilityEnum.optional(),
   access: AccessEnum.optional(),
   description: z.string().optional(),
+  name: z.string().optional(),
 })
 
 export function validateEditActivity(input: any) {

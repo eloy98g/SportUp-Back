@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ActivityController } from "../controllers/activityController";
+import { ActivityController } from "../controllers/activity";
 
 export const activityRouter = Router();
 
@@ -13,10 +13,12 @@ activityRouter.patch("/:id", ActivityController.update);
 
 activityRouter.delete("/:id", ActivityController.delete);
 
-activityRouter.post("/:id/result", ActivityController.createResult);
+activityRouter.patch("/:id/teams", ActivityController.updateTeams);
 
-activityRouter.post("/:id/participation", ActivityController.createParticipation);
+// activityRouter.post("/:id/result", ActivityController.createResult);
 
-activityRouter.get("/:id/participation", ActivityController.getAllParticipation);
+// activityRouter.post("/:id/participation", ActivityController.createParticipation);
 
-activityRouter.patch("/:id/resolve-participation/:id", ActivityController.resolveParticipation);
+// activityRouter.get("/:id/participation", ActivityController.getAllParticipation);
+
+// activityRouter.patch("/:id/resolve-participation/:id", ActivityController.resolveParticipation);
