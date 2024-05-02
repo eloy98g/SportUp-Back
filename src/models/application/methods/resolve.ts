@@ -19,7 +19,10 @@ export async function resolve(input: any) {
         args: [gid],
       });
       if (select.length === 0) {
-        return { result: false, message: "Error obteniendo datos de la solicitud" };
+        return {
+          result: false,
+          message: "Error obteniendo datos de la solicitud",
+        };
       } else {
         // TODO: this should be a trigger
         const { activityGid, userGid } = select[0];
@@ -57,7 +60,22 @@ export async function resolve(input: any) {
         });
 
         if (rowsAffected === 0) {
-          return { result: false, message: "No hay espacios disponibles ahora mismo" };
+          const { rowsAffected: updated } = await connection.execute({
+            sql: `UPDATE application SET status = 'pending' WHERE gid = ?;`,
+            args: [response, gid],
+          });
+          if (updated === 0) {
+            return {
+              result: false,
+              message:
+                "No hay espacio para el usuario. Error actualizando la solicitud",
+            };
+          } else {
+            return {
+              result: false,
+              message: "No hay espacios disponibles ahora mismo",
+            };
+          }
         } else {
           return { result: true };
         }
