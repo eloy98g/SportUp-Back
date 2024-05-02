@@ -55,14 +55,21 @@ export function validateActivity(input: any) {
   return creationSchema.safeParse(input);
 }
 
-
 const editSchema = z.object({
   visibility: VisibilityEnum.optional(),
   access: AccessEnum.optional(),
   description: z.string().optional(),
   name: z.string().optional(),
-})
+});
 
 export function validateEditActivity(input: any) {
   return editSchema.safeParse(input);
+}
+
+const removePlayersSChema = z.object({
+  players: z.array(z.string()),
+});
+
+export function validateRemovePlayersActivity(input: any) {
+  return removePlayersSChema.safeParse(input);
 }
