@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 const TeamSchema = z.object({
-  teamGid: z.string(),
+  gid: z.string(),
   players: z.array(z.string()),
 });
 

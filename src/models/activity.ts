@@ -207,7 +207,7 @@ export class ActivityModel {
   static async updateTeams(gid: string, input: any) {
     try {
       const promises = input.teams.map(async (team: any) => {
-        const { teamGid, players } = team;
+        const { gid:teamGid, players } = team;
 
         const playerPromises = players.map(async (playerGid: string) => {
           const sql = `UPDATE user_team SET teamGid = ? WHERE userGid = ? AND activityGid = ?;`;
