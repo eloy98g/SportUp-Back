@@ -1,0 +1,1 @@
+export { validateApplication } from "./validateApplication";

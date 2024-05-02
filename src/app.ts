@@ -9,6 +9,7 @@ import { userRouter } from "./routes/userRouter";
 import { chatRouter } from "./routes/chatRouter";
 import { sportRouter } from "./routes/sportRouter";
 import { authRouter } from "./routes/authRouter";
+import { applicationRouter } from "./routes/applicationRouter";
 
 const app: Application = express();
 export const PORT = process.env.PORT || 1234;
@@ -22,6 +23,7 @@ app.use("/user", userRouter);
 app.use("/activity", activityRouter);
 app.use("/chat", chatRouter);
 app.use("/sport", sportRouter);
+app.use("/application", applicationRouter);
 
 app.listen(PORT, () => {
   console.log(`server listening on http://localhost:${PORT}`);
