@@ -1,1 +1,5 @@
-export { validateGid, validateApplication } from "./validateApplication";
+export {
+  validateGid,
+  validateApplication,
+  validateApplicationResponse,
+} from "./validateApplication";

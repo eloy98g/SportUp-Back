@@ -4,14 +4,19 @@ import { Request, Response } from "express";
 import { ApplicationModel } from "../../../models/application";
 
 // Schemas
-import { validateApplication } from "../../../schemas/application";
+import {
+  validateApplicationResponse,
+  validateGid,
+} from "../../../schemas/application";
 
 // Utils
 import getParsedValidationError from "../../../utils/getParsedValidationError";
 import { ResponseHandler } from "../../../utils/responseHandler";
 
 export async function resolve(req: Request, res: Response) {
-  const result = validateApplication(req);
+  const result = validateApplicationResponse(req.body);
+  const { id } = req.params;
+  const gidResult = validateGid(id);
 
   if (!result.success) {
     return ResponseHandler.handleNotFound(
@@ -20,10 +25,25 @@ export async function resolve(req: Request, res: Response) {
     );
   }
 
-  const applicationArray = await ApplicationModel.getAll(result.data);
-
-  if (applicationArray) {
-    return ResponseHandler.handleSuccess(res, applicationArray);
+  if (!gidResult.success) {
+    return ResponseHandler.handleNotFound(
+      res,
+      getParsedValidationError(gidResult.error.errors)
+    );
   }
-  return ResponseHandler.handleNotFound(res, "Error fetching activities.");
+
+  const input = {
+    gid: id,
+    response: result.data.response,
+  };
+
+  const responseResult = await ApplicationModel.resolve(input);
+
+  if (responseResult.result) {
+    return ResponseHandler.handleSuccess(res, responseResult.result);
+  }
+  return ResponseHandler.handleNotFound(
+    res,
+    responseResult.message || "Error resolving application."
+  );
 }
