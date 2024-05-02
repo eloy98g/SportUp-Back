@@ -62,7 +62,7 @@ export async function resolve(input: any) {
         if (rowsAffected === 0) {
           const { rowsAffected: updated } = await connection.execute({
             sql: `UPDATE application SET status = 'pending' WHERE gid = ?;`,
-            args: [response, gid],
+            args: [gid],
           });
           if (updated === 0) {
             return {
