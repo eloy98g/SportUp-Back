@@ -15,7 +15,7 @@ export async function resolve(input: any) {
       return { result: true };
     } else {
       const { rows: select } = await connection.execute({
-        sql: `SELECT * FROM application WHERE gid = ? AND status = 'pending';`,
+        sql: `SELECT * FROM application WHERE gid = ? AND status = 'accepted';`,
         args: [gid],
       });
       if (select.length === 0) {
