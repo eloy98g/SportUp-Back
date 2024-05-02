@@ -1,1 +1,1 @@
-export { validateApplication } from "./validateApplication";
+export { validateGid, validateApplication } from "./validateApplication";

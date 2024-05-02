@@ -11,19 +11,22 @@ import getParsedValidationError from "../../../utils/getParsedValidationError";
 import { ResponseHandler } from "../../../utils/responseHandler";
 
 export async function create(req: Request, res: Response) {
-  const result = validateApplication(req.query);
+  const validationResult = validateApplication(req.body);
 
-  if (!result.success) {
+  if (!validationResult.success) {
     return ResponseHandler.handleNotFound(
       res,
-      getParsedValidationError(result.error.errors)
+      getParsedValidationError(validationResult.error.errors)
     );
   }
 
-  const applicationArray = await ApplicationModel.getAll(result.data);
+  const result = await ApplicationModel.create(validationResult.data);
 
-  if (applicationArray) {
-    return ResponseHandler.handleSuccess(res, applicationArray);
+  if (result.result) {
+    return ResponseHandler.handleSuccess(res, result.result);
   }
-  return ResponseHandler.handleNotFound(res, "Error fetching activities.");
+  return ResponseHandler.handleNotFound(
+    res,
+    result.message || "Error creating application."
+  );
 }

@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { ApplicationModel } from "../../../models/application";
 
 // Schemas
-import { validateApplication } from "../../../schemas/application";
+import { validateGid } from "../../../schemas/application";
 
 // Utils
 import getParsedValidationError from "../../../utils/getParsedValidationError";
@@ -12,7 +12,7 @@ import { ResponseHandler } from "../../../utils/responseHandler";
 
 export async function getAll(req: Request, res: Response) {
   const { id } = req.params;
-  const result = validateApplication(id);
+  const result = validateGid(id);
 
   if (!result.success) {
     return ResponseHandler.handleNotFound(

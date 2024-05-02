@@ -1,6 +1,15 @@
 import { z } from "zod";
 
-const applicationSchema = z.string();
+const applicationGidSchema = z.string();
+
+export function validateGid(input: any) {
+  return applicationGidSchema.safeParse(input);
+}
+
+const applicationSchema = z.object({
+  activityGid: z.string(),
+  userGid: z.string(),
+});
 
 export function validateApplication(input: any) {
   return applicationSchema.safeParse(input);
