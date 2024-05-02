@@ -26,5 +26,5 @@ export async function getById(req: Request, res: Response) {
   if (activity) {
     return ResponseHandler.handleSuccess(res, activity);
   }
-  return ResponseHandler.handleNotFound(res, "Error fetching activity.");
+  return ResponseHandler.handleNotFound(res, "Error obteniendo los datos de la actividad.");
 }

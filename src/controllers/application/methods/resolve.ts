@@ -44,6 +44,6 @@ export async function resolve(req: Request, res: Response) {
   }
   return ResponseHandler.handleNotFound(
     res,
-    responseResult.message || "Error resolving application."
+    responseResult.message || "Error modificando la solicitud."
   );
 }

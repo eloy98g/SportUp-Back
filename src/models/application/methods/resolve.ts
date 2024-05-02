@@ -9,7 +9,7 @@ export async function resolve(input: any) {
   });
 
   if (rowsAffected === 0) {
-    return { result: false, message: "Error updating application" };
+    return { result: false, message: "Error actualizando la solicitud" };
   } else {
     if (response === "rejected") {
       return { result: true };
@@ -19,8 +19,9 @@ export async function resolve(input: any) {
         args: [gid],
       });
       if (select.length === 0) {
-        return { result: false, message: "Error retrieving application data" };
+        return { result: false, message: "Error obteniendo datos de la solicitud" };
       } else {
+        // TODO: this should be a trigger
         const { activityGid, userGid } = select[0];
         const { rowsAffected } = await connection.execute({
           sql: `INSERT INTO user_team (userGid, activityGid, teamGid)
@@ -56,7 +57,7 @@ export async function resolve(input: any) {
         });
 
         if (rowsAffected === 0) {
-          return { result: false, message: "Error inserting user on team" };
+          return { result: false, message: "No hay espacios disponibles ahora mismo" };
         } else {
           return { result: true };
         }

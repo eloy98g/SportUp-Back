@@ -26,5 +26,5 @@ export async function getAll(req: Request, res: Response) {
   if (applicationArray) {
     return ResponseHandler.handleSuccess(res, applicationArray);
   }
-  return ResponseHandler.handleNotFound(res, "Error fetching activities.");
+  return ResponseHandler.handleNotFound(res, "Error obteniendo las solicitudes.");
 }

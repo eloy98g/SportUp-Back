@@ -27,6 +27,6 @@ export async function create(req: Request, res: Response) {
   }
   return ResponseHandler.handleNotFound(
     res,
-    result.message || "Error creating application."
+    result.message || "Error creando la solicitud."
   );
 }

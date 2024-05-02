@@ -9,7 +9,7 @@ export async function create(input: any) {
   });
 
   if (rows.length > 0)
-    return { result: false, message: "User already applied to this activity" };
+    return { result: false, message: "Error: Este usuario ya había solicitado unirse" };
 
   const date = Date.now();
   const sql = `INSERT INTO application (creationDate, activityGid, userGid, status) VALUES (?, ?, ?, 'pending');`;
@@ -18,6 +18,6 @@ export async function create(input: any) {
   const { rowsAffected } = await connection.execute({ sql, args });
 
   if (rowsAffected === 0)
-    return { result: false, message: "Error creating application" };
+    return { result: false, message: "Error creando la solicitud" };
   return { result: true };
 }

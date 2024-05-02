@@ -25,5 +25,5 @@ export async function create(req: Request, res: Response) {
   if (activity) {
     return ResponseHandler.handleSuccess(res, activity);
   }
-  return ResponseHandler.handleNotFound(res, "Error creating activity.");
+  return ResponseHandler.handleNotFound(res, "Error creando la actividad.");
 }

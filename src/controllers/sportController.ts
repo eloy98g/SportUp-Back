@@ -9,7 +9,7 @@ export class SportController {
     if (sportsArray) {
       return ResponseHandler.handleSuccess(res, sportsArray);
     }
-    return ResponseHandler.handleNotFound(res, "Error fetching activities.");
+    return ResponseHandler.handleNotFound(res, "Error obteniendo los deportes.");
   }
 
   static async favorite(_req:Request, _res:Response) {}

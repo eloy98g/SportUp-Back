@@ -10,7 +10,7 @@ export class UserController {
     if (user) {
       return ResponseHandler.handleSuccess(res, user);
     }
-    return ResponseHandler.handleNotFound(res, "User not found");
+    return ResponseHandler.handleNotFound(res, "Usuario no encontrado.");
   }
 
   static async getAll(_req: Request, _res: Response) {}

@@ -33,9 +33,9 @@ export class AuthController {
     if (user) {
       return ResponseHandler.handleSuccess(res, user);
     } else if (user === false) {
-      return ResponseHandler.handleNotFound(res, "User already exists.");
+      return ResponseHandler.handleNotFound(res, "El usuario ya existe.");
     } else {
-      return ResponseHandler.handleNotFound(res, "Error creating user.");
+      return ResponseHandler.handleNotFound(res, "Error creando el usuario.");
     }
   }
 
@@ -50,7 +50,7 @@ export class AuthController {
     if (user) {
       return ResponseHandler.handleSuccess(res, user);
     } else {
-      return ResponseHandler.handleNotFound(res, "Wrong email or password.");
+      return ResponseHandler.handleNotFound(res, "Email o contraseña incorrectos.");
     }
   }
 

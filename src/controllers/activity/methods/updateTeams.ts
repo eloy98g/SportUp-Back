@@ -25,5 +25,5 @@ export async function updateTeams(req: Request, res: Response) {
   if (activity) {
     return ResponseHandler.handleSuccess(res, activity);
   }
-  return ResponseHandler.handleNotFound(res, "Error updating activity.");
+  return ResponseHandler.handleNotFound(res, "Error actualizando los equipos.");
 }

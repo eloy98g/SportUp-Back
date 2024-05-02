@@ -26,5 +26,5 @@ export async function deleteActivity(req: Request, res: Response) {
   if (activity) {
     return ResponseHandler.handleSuccess(res, activity);
   }
-  return ResponseHandler.handleNotFound(res, "Error deleting activity.");
+  return ResponseHandler.handleNotFound(res, "Error eliminando la actividad.");
 }
