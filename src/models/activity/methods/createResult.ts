@@ -30,6 +30,18 @@ export async function createResult(gid: string, body: any) {
       });
   
       await Promise.all(scorePromises);
+
+      const { rowsAffected } = await connection.execute({
+        sql: `UPDATE activity SET status = finished WHERE gid = ?;`,
+        args: [gid],
+      });
+
+      if(rowsAffected === 0){
+        return {
+          result: false,
+          message: "Error actualizando el estado de la actividad.",
+        };
+      }
   
       return { result: true, data: true, message: "" };
     }
