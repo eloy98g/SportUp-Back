@@ -27,11 +27,6 @@ export function validateActivityParameters(input: any) {
   return getActivitySchema.safeParse(input);
 }
 
-const acitivityGidSchema = z.string();
-export function validateActivityGid(input: any) {
-  return acitivityGidSchema.safeParse(input);
-}
-
 /** CREATION **/
 const creationSchema = z.object({
   userGid: z.string(),

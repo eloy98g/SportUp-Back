@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { ApplicationModel } from "../../../models/application";
 
 // Schemas
-import { validateGid } from "../../../schemas/application";
+import { validateGid } from "../../../schemas/common";
 
 // Utils
 import getParsedValidationError from "../../../utils/getParsedValidationError";

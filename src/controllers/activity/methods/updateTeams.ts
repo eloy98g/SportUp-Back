@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 // Models
-import { ActivityModel } from "../../../models/activity";
+import { ActivityModel } from "../../../models/activity/activityModel";
 
 // Schemas
 import { validateTeamRelation } from "../../../schemas/teamPlayerRelation";
