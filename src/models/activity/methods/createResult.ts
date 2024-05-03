@@ -17,9 +17,9 @@ export async function createResult(gid: string, body: any) {
       };
     }else{
       const scorePromises = scores.map(async (score: Score) => {
-        const { team, points, slot } = score;
+        const { team, points, position } = score;
         const sql = `INSERT INTO slot (activityGid, teamGid, points, position) VALUES (?, ?, ?, ?);`;
-        const args = [gid, team, points, slot];
+        const args = [gid, team, points, position];
         const { rowsAffected } = await connection.execute({ sql, args });
   
         if (rowsAffected === 0) {

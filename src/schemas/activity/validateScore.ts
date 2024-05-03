@@ -3,7 +3,7 @@ import { z } from "zod";
 const scoreSchema = z.object({
   team: z.string(),
   points: z.number(),
-  slot: z.number(),
+  position: z.number(),
 });
 
 const scoreArraySchema = z.object({

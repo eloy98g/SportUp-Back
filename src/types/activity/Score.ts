@@ -1,7 +1,7 @@
 interface Score {
   team: string;
   points: string;
-  slot: number;
+  position: number;
 }
 
 export default Score;
