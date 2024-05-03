@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { ActivityModel } from "../../../models/activity";
 
 // Schemas
-import { validateActivityGid } from "../../../schemas/activity";
+import { validateGid } from "../../../schemas/common";
 
 // Utils
 import getParsedValidationError from "../../../utils/getParsedValidationError";
@@ -12,7 +12,7 @@ import { ResponseHandler } from "../../../utils/responseHandler";
 
 export async function deleteActivity(req: Request, res: Response) {
   const { id } = req.params;
-  const result = validateActivityGid(id);
+  const result = validateGid(id);
 
   if (!result.success) {
     return ResponseHandler.handleNotFound(

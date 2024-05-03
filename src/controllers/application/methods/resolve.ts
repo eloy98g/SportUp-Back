@@ -6,12 +6,12 @@ import { ApplicationModel } from "../../../models/application";
 // Schemas
 import {
   validateApplicationResponse,
-  validateGid,
 } from "../../../schemas/application";
 
 // Utils
 import getParsedValidationError from "../../../utils/getParsedValidationError";
 import { ResponseHandler } from "../../../utils/responseHandler";
+import { validateGid } from "../../../schemas/common";
 
 export async function resolve(req: Request, res: Response) {
   const result = validateApplicationResponse(req.body);

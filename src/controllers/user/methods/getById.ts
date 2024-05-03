@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 // Models
-import { ActivityModel } from "../../../models/activity";
+import { UserModel } from "../../../models/user/userModel";
 
 // Schemas
 import { validateGid } from "../../../schemas/common";
@@ -12,19 +12,19 @@ import getParsedValidationError from "../../../utils/getParsedValidationError";
 
 export async function getById(req: Request, res: Response) {
   const { id } = req.params;
-  const result = validateGid(id);
+  const gidResult = validateGid(id);
 
-  if (!result.success) {
+  if (!gidResult.success) {
     return ResponseHandler.handleNotFound(
       res,
-      getParsedValidationError(result.error.errors)
+      getParsedValidationError(gidResult.error.errors)
     );
   }
 
-  const activity = await ActivityModel.getById(result.data);
+  const user = await UserModel.getById(id);
 
-  if (activity) {
-    return ResponseHandler.handleSuccess(res, activity);
+  if (user) {
+    return ResponseHandler.handleSuccess(res, user);
   }
-  return ResponseHandler.handleNotFound(res, "Error obteniendo los datos de la actividad.");
+  return ResponseHandler.handleNotFound(res, "Usuario no encontrado.");
 }
