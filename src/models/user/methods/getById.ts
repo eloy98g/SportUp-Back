@@ -6,7 +6,7 @@ export async function getById(id: string) {
     sql: `
         SELECT u.*, lu.*
         FROM user u
-        LEFT JOIN location_user lu ON u.gid = lu.gid
+        LEFT JOIN location_user lu ON u.gid = lu.userGid
         WHERE u.gid = ?;
       `,
     args: [id],
