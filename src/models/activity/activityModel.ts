@@ -1,4 +1,5 @@
 import { create } from "./methods/create";
+import { createResult } from "./methods/createResult";
 import { deleteActivity } from "./methods/delete";
 import { getAll } from "./methods/getAll";
 import { getById } from "./methods/getById";
@@ -22,4 +23,7 @@ export class ActivityModel {
 
   static removePlayers = async (gid: string, input: any) =>
     removePlayers(gid, input);
+
+  static createResult = async (gid: string, input: any) =>
+    createResult(gid, input);
 }

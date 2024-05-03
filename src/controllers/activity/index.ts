@@ -8,6 +8,7 @@ import { update } from "./methods/update";
 import { deleteActivity } from "./methods/delete";
 import { updateTeams } from "./methods/updateTeams";
 import { removePlayers } from "./methods/removePlayers";
+import { createResult } from "./methods/createResult";
 
 export class ActivityController {
   static getAll = async (req: Request, res: Response) => getAll(req, res);
@@ -27,8 +28,8 @@ export class ActivityController {
   static removePlayers = async (req: Request, res: Response) =>
     removePlayers(req, res);
 
-  // static createResult = async (req: Request, res: Response) =>
-  //   createResult(req, res);
+  static createResult = async (req: Request, res: Response) =>
+    createResult(req, res);
 
   // static createParticipation = async (req: Request, res: Response) =>
   //   createParticipation(req, res);

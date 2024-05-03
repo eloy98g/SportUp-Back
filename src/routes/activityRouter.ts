@@ -17,7 +17,7 @@ activityRouter.patch("/:id/teams", ActivityController.updateTeams);
 
 activityRouter.delete("/:id/players", ActivityController.removePlayers);
 
-// activityRouter.post("/:id/result", ActivityController.createResult);
+activityRouter.post("/:id/result", ActivityController.createResult);
 
 // activityRouter.post("/:id/participation", ActivityController.createParticipation);
 
