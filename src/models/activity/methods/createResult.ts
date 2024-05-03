@@ -31,8 +31,9 @@ export async function createResult(gid: string, body: any) {
   
       await Promise.all(scorePromises);
 
+      // TODO: this could be a trigger
       const { rowsAffected } = await connection.execute({
-        sql: `UPDATE activity SET status = finished WHERE gid = ?;`,
+        sql: `UPDATE activity SET status = 'finished' WHERE gid = ?;`,
         args: [gid],
       });
 
