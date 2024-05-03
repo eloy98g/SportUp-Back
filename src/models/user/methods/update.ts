@@ -1,33 +1,15 @@
-import { uploadImage } from "../../../services/firebase";
 import { connection } from "../../dbConnection";
 import { UserModel } from "../userModel";
 
 export async function update(gid: string, body: any) {
   // TODO: store image in firebase
-  const { image, location, ...rest } = body;
-
-  if (image) {
-    const imageName = `${gid}`;
-    const imagePath = "users";
-
-    const uploadResult = await uploadImage(image, imageName, imagePath);
-    if (!uploadResult.result) {
-      return {
-        result: false,
-        message: "Error al cargar la imagen en Firebase Storage",
-      };
-    }
-    // Si la carga de la imagen es exitosa, actualiza el nombre de la imagen en la base de datos
-    rest.image = imageName;
-    console.log("imageName", imageName);
-  }
+  const { location, ...rest } = body;
 
   let setClause = Object.keys(rest)
     .map((key) => (key !== "location" ? `${key} = ?` : ""))
     .join(", ");
 
   let sql = `UPDATE user SET ${setClause} WHERE gid = ?`;
-
   let args: any = [...Object.values(rest), gid];
 
   const { rowsAffected } = await connection.execute({
