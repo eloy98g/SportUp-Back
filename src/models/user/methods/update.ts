@@ -17,7 +17,8 @@ export async function update(gid: string, body: any) {
     args,
   });
 
-  const { lat, lng, radius } = location;
+  const { latitude, longitude, latitudeDelta, longitudeDelta, radius } =
+    location;
   if (rowsAffected === 0) {
     return {
       result: false,
@@ -25,9 +26,10 @@ export async function update(gid: string, body: any) {
     };
   } else {
     const { rowsAffected: location } = await connection.execute({
-      sql: "UPDATE location_user SET latitude = ?, longitude = ?, radius = ? WHERE userGid = ?",
-      args: [lat, lng, radius, gid],
+      sql: "UPDATE location_user SET latitude = ?, longitude = ?, latitudeDelta = ?, longitudeDelta = ?,radius = ? WHERE userGid = ?",
+      args: [latitude, longitude, latitudeDelta || null, longitudeDelta || null, radius, gid],
     });
+
     if (location === 0) {
       return {
         result: false,
