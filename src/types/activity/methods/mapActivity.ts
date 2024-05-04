@@ -11,7 +11,7 @@ const mapActivity = (data: any): Activity => {
     location: mapLocation(data),
     visibility: data?.visibility || "",
     creationDate: data?.creationDate || "",
-    startDate: data?.startDate || 0,
+    startDate: data?.dateStart || 0,
     duration: data?.duration || 0,
     admin: mapAdmin(data),
     access: data?.access || "open",
