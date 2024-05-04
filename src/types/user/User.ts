@@ -8,7 +8,7 @@ export interface User {
   image?: string;
   description?: string;
   location: Location;
-  birthDate?: number;
+  birthdate?: number;
   creationDate?: number;
   phoneVerified: boolean;
   emailVerified: boolean;

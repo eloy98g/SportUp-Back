@@ -10,7 +10,7 @@ const mapUser = (data: any): User => {
     image: data?.image || "",
     description: data?.description || "",
     location: mapLocation(data),
-    birthDate: data?.birthDate || 0,
+    birthdate: data?.birthdate || 0,
     creationDate: data?.creationDate || 0,
     phoneVerified: data?.phoneVerified || false,
     emailVerified: data?.emailVerified || false,
