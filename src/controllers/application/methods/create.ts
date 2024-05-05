@@ -23,7 +23,7 @@ export async function create(req: Request, res: Response) {
   const result = await ApplicationModel.create(validationResult.data);
 
   if (result.result) {
-    return ResponseHandler.handleSuccess(res, result.result);
+    return ResponseHandler.handleSuccess(res, result.data);
   }
   return ResponseHandler.handleNotFound(
     res,
