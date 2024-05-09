@@ -29,7 +29,7 @@ export async function newUser(input: any) {
   });
 
   if (result.length > 0) {
-    return { result: true, user: mapUser(result[0]), message: "" };
+    return { result: true, data: mapUser(result[0]), message: "" };
   }
 
   return { result: false, message: "Error creando usuario." };

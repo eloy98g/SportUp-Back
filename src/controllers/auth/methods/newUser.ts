@@ -23,7 +23,7 @@ export async function newUser(req: Request, res: Response) {
   const user = await AuthModel.newUser(result.data);
 
   if (user.result === true) {
-    return ResponseHandler.handleSuccess(res, user);
+    return ResponseHandler.handleSuccess(res, user.data);
   } else {
     return ResponseHandler.handleNotFound(res, user?.message);
   }
