@@ -1,0 +1,180 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ActivityAccess {
+  OPEN
+  CLOSED
+}
+
+enum AtivityType {
+  normal
+  competitive
+}
+
+enum ActivityVisibility {
+  public
+  private
+}
+
+enum ActivityStatus {
+  draft
+  pending
+  closed
+  ongoing
+  waitingScore
+  finished
+}
+
+enum ApplicationStatus {
+  pending
+  dismissed
+  accepted
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NSNC
+  OTHER
+}
+
+model Sport {
+  gid    String  @id @default(uuid())
+  image String 
+  name  String  @unique
+  icon_black  String
+  icon_white  String
+}
+
+model LocationActivity {
+  gid    String  @id @default(uuid())
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid  String
+  latitude  Float
+  longitude  Float
+  directions  String
+}
+
+model LocationUser {
+  gid    String  @id @default(uuid())
+  user  User  @relation(fields: [userGid], references: [gid])
+  userGid  String
+  latitude  Float
+  longitude  Float
+  latitudeDelta  Float
+  longitudeDelta  Float
+  radius  Int
+}
+
+model User {
+  gid     String  @id @default(uuid())
+  email   String  @unique
+  name    String
+  password  String
+  image String
+  description String
+  phone Int
+  birthday DateTime
+  creationDate DateTime @default(now())
+  phoneVerified Boolean
+  emailVerified Boolean
+  gender Gender @default(NSNC)
+}
+
+model Activity {
+  gid     String  @id @default(uuid())
+  user  User  @relation(fields: [admin], references: [gid])
+  admin  String
+  creationDate DateTime @default(now())
+  dateStart DateTime
+  duration Int
+  price Int
+  visibility ActivityVisibility @default(public)
+  type AtivityType @default(normal)
+  access ActivityAccess @default(OPEN)
+  name String
+  sport  Sport  @relation(fields: [sportGid], references: [gid])
+  sportGid  String
+  description String
+  playersPerTeam Int
+}
+
+model Chat {
+  gid String  @id @default(uuid())
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+  image String
+}
+
+model Message {
+  gid String  @id @default(uuid())
+  chat  Chat  @relation(fields: [chatGid], references: [gid])
+  chatGid String
+  user  User  @relation(fields: [sender], references: [gid])
+  sender String
+  content String
+  date DateTime
+}
+
+model Team {
+  gid String  @id @default(uuid())
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+  name String
+}
+
+model Slot {
+  gid String  @id @default(uuid())
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+  team  Team  @relation(fields: [teamGid], references: [gid])
+  teamGid String
+  points Int
+  position Int
+}
+
+model Application {
+  gid String  @id @default(uuid())
+  user  User  @relation(fields: [userGid], references: [gid])
+  userGid String
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+  status ApplicationStatus @default(pending)
+  creationDate DateTime @default(now())
+}
+
+model Review {
+  gid String  @id @default(uuid())
+  reviewer  String
+  reviewed  String
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+  rating Int
+  comment String
+  creationDate DateTime @default(now())
+}
+
+model SportFavorite {
+  @@id([userGid, sportGid])
+  user  User  @relation(fields: [userGid], references: [gid])
+  userGid String
+  sport  Sport  @relation(fields: [sportGid], references: [gid])
+  sportGid String
+}
+
+model UserTeam {
+  @@id([userGid, teamGid, activityGid])
+  user  User  @relation(fields: [userGid], references: [gid])
+  userGid String
+  team  Team  @relation(fields: [teamGid], references: [gid])
+  teamGid String
+  activity  Activity  @relation(fields: [activityGid], references: [gid])
+  activityGid String
+}
