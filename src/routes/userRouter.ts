@@ -9,6 +9,6 @@ userRouter.get("/", UserController.getAll);
 
 userRouter.patch("/:id", UserController.update);
 
-userRouter.post("/user/:id/follow", UserController.follow);
+userRouter.post("/:id/follow", UserController.follow);
 
-userRouter.post("/user/:id/unfollow", UserController.unfollow);
+userRouter.post("/:id/unfollow", UserController.unfollow);

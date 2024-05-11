@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { getById } from "./methods/getById";
 import { update } from "./methods/update";
 import { getAll } from "./methods/getAll";
+import { follow } from "./methods/follow";
+import { unfollow } from "./methods/unfollow";
 
 export class UserController {
   static getById = async (req: Request, res: Response) => getById(req, res);
@@ -10,7 +12,7 @@ export class UserController {
 
   static getAll = async (req: Request, res: Response) => getAll(req, res);
 
-  static async follow(_req: Request, _res: Response) {}
+  static follow = async (req: Request, res: Response) => follow(req, res);
 
-  static async unfollow(_req: Request, _res: Response) {}
+  static unfollow = async (req: Request, res: Response) => unfollow(req, res);
 }
