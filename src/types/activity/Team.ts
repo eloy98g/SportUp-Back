@@ -1,9 +1,9 @@
-import Player from "../user/Player";
+import SimpleUser from "../user/SimpleUser";
 
 type Team = {
   gid: string;
   name: string;
-  players: Player[];
+  players: SimpleUser[];
 };
 
 export default Team;

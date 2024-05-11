@@ -1,4 +1,4 @@
-import mapUser from "../../../types/methods/mapUser";
+import mapUser from "../../../types/user/methods/mapUser";
 import { connection } from "../../dbConnection";
 
 export async function getById(id: string) {

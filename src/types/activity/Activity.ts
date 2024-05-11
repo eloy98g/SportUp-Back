@@ -2,7 +2,7 @@ import Location from "../Location";
 import Score from "./Score";
 import Team from "./Team";
 import Sport from "../sport/Sport";
-import Player from "../user/Player";
+import SimpleUser from "../user/SimpleUser";
 
 export type SortBy = "recent" | "numPlayers" | "closest";
 export type PriceSlot = "0€" | "1€-5€" | "5€-10€" | "10€-15€" | "15€";
@@ -24,7 +24,7 @@ export default interface Activity {
   creationDate: number;
   startDate: number;
   duration: number;
-  admin: Player;
+  admin: SimpleUser;
   access: ActivityAccess;
   type: ActivityType;
   price: number;

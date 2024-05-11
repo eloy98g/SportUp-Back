@@ -1,7 +1,7 @@
-import Player from "../../user/Player";
+import SimpleUser from "../../user/SimpleUser";
 
-const mapAdmin = (data: any): Player => {
-  const newAdmin: Player = {
+const mapAdmin = (data: any): SimpleUser => {
+  const newAdmin: SimpleUser = {
     gid: data?.adminGid,
     name: data?.adminName,
     image: data?.adminImage,

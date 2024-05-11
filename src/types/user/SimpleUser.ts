@@ -1,7 +1,7 @@
-interface Player {
+interface SimpleUser {
   gid: string;
   name: string;
   image: string;
 }
 
-export default Player;
+export default SimpleUser;
