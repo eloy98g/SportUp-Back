@@ -1,7 +1,7 @@
-import Player from "../user/Player";
+import SimpleUser from "../user/SimpleUser";
 
 export default interface Application {
   gid: string;
   status: string;
-  user: Player;
+  user: SimpleUser;
 }

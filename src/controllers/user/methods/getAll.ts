@@ -11,7 +11,7 @@ import { ResponseHandler } from "../../../utils/responseHandler";
 import getParsedValidationError from "../../../utils/getParsedValidationError";
 
 export async function getAll(req: Request, res: Response) {
-  const result = validateAllUser(req.body);
+  const result = validateAllUser(req.query);
 
   if (!result.success) {
     return ResponseHandler.handleNotFound(

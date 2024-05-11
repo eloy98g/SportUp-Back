@@ -1,22 +1,57 @@
-import mapUser from "../../../types/methods/mapUser";
+import mapSimpleUser from "../../../types/user/methods/mapSimpleUser";
 import { connection } from "../../dbConnection";
 
-export async function getAll(input: any) {
-  let getClause = Object.keys(input)
-    .map((key) => `${key} = ?`)
-    .join(", ");
-  let args: any = [...Object.values(input)];
+const getByFollowedBy = async (gid: string) => {
+  const sql =
+    "SELECT gid, name, image FROM user WHERE gid IN (SELECT following FROM friends WHERE user = ?);";
 
-  let sql = `SELECT * FROM USER u WHERE ${getClause} LEFT JOIN location_user lu ON u.gid = lu.userGid`;
+  const args = [gid];
 
   const { rows } = await connection.execute({
     sql,
     args,
   });
+  return rows;
+};
 
-  if (rows) {
-    const users = rows.map((row: any) => mapUser(row));
-    return { result: false, message: "success", data: users };
+const getByFollowing = async (gid: string) => {
+  const sql =
+    "SELECT gid, name, image FROM user WHERE gid IN (SELECT user FROM friends WHERE following = ?);";
+
+  const args = [gid];
+
+  const { rows } = await connection.execute({
+    sql,
+    args,
+  });
+  return rows;
+};
+
+const getByName = async (name: string) => {
+  const sql = "SELECT gid, name, image FROM user WHERE name LIKE ? ;";
+
+  const nameArg = `%${name}%`;
+  const args = [nameArg];
+
+  const { rows } = await connection.execute({
+    sql,
+    args,
+  });
+  return rows;
+};
+
+export async function getAll(input: any) {
+  const { following = null, followedBy = null, name = null } = input;
+
+  const result = following
+    ? await getByFollowing(following)
+    : followedBy
+    ? await getByFollowedBy(followedBy)
+    : await getByName(name);
+
+  if (result) {
+    const users = result.map((row: any) => mapSimpleUser(row));
+    return { result: true, message: "success", data: users };
   }
 
   return { result: false, message: "Error searching users", data: [] };

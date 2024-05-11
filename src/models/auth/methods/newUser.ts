@@ -1,7 +1,7 @@
 import { connection } from "../../dbConnection";
 
 // Types
-import mapUser from "../../../types/methods/mapUser";
+import mapUser from "../../../types/user/methods/mapUser";
 
 // Utils
 import getPasswordHash from "../../../utils/getPasswordHash";

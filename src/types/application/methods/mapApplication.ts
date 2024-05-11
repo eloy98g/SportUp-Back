@@ -1,4 +1,4 @@
-import Player from "../../user/Player";
+import SimpleUser from "../../user/SimpleUser";
 import Application from "../Application";
 
 const mapApplication = (data: any): Application => {
@@ -9,7 +9,7 @@ const mapApplication = (data: any): Application => {
       gid: data.userGid,
       name: data.name,
       image: data.image,
-    } as Player,
+    } as SimpleUser,
   };
   return newApplication;
 };

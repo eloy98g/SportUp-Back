@@ -16,8 +16,6 @@ export async function getAll(req: Request, res: Response) {
   const gidResult = validateGid(id);
   const result = validateApplicationBody(req.query);
 
-  console.log("req.body", req.body);
-  console.log('req.body result', result)
   if (!result.success) {
     return ResponseHandler.handleNotFound(
       res,
