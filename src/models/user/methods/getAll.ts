@@ -3,7 +3,7 @@ import { connection } from "../../dbConnection";
 
 const getByFollowedBy = async (gid: string) => {
   const sql =
-    "SELECT gid, name, image FROM user WHERE gid IN (SELECT following FROM friends WHERE user = ?);";
+    "SELECT gid, name, image FROM user WHERE gid IN (SELECT following FROM friends WHERE user = ? LIMIT 25);";
 
   const args = [gid];
 
@@ -16,7 +16,7 @@ const getByFollowedBy = async (gid: string) => {
 
 const getByFollowing = async (gid: string) => {
   const sql =
-    "SELECT gid, name, image FROM user WHERE gid IN (SELECT user FROM friends WHERE following = ?);";
+    "SELECT gid, name, image FROM user WHERE gid IN (SELECT user FROM friends WHERE following = ? LIMIT 25);";
 
   const args = [gid];
 
@@ -28,7 +28,7 @@ const getByFollowing = async (gid: string) => {
 };
 
 const getByName = async (name: string) => {
-  const sql = "SELECT gid, name, image FROM user WHERE name LIKE ? ;";
+  const sql = "SELECT gid, name, image FROM user WHERE name LIKE ? LIMIT 25;";
 
   const nameArg = `%${name}%`;
   const args = [nameArg];
