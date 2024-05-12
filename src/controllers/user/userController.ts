@@ -4,6 +4,7 @@ import { update } from "./methods/update";
 import { getAll } from "./methods/getAll";
 import { follow } from "./methods/follow";
 import { unfollow } from "./methods/unfollow";
+import { getFavoriteSports } from "./methods/getFavoriteSports";
 
 export class UserController {
   static getById = async (req: Request, res: Response) => getById(req, res);
@@ -15,4 +16,7 @@ export class UserController {
   static follow = async (req: Request, res: Response) => follow(req, res);
 
   static unfollow = async (req: Request, res: Response) => unfollow(req, res);
+
+  static getFavoriteSports = async (req: Request, res: Response) =>
+    getFavoriteSports(req, res);
 }

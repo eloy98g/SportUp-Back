@@ -7,6 +7,8 @@ userRouter.get("/:id", UserController.getById);
 
 userRouter.get("/", UserController.getAll);
 
+userRouter.get("/:id/favSports", UserController.getFavoriteSports);
+
 userRouter.patch("/:id", UserController.update);
 
 userRouter.post("/:id/follow", UserController.follow);
