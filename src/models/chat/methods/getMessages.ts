@@ -24,7 +24,7 @@ export async function getMessages(gid: string) {
     JOIN message m ON c.gid = m.chatGid
     LEFT JOIN user u_sender ON m.sender = u_sender.gid
     WHERE c.gid = ?
-    ORDER BY m.date ASC;`,
+    ORDER BY m.date DESC;`,
     args: [gid],
   });
 
