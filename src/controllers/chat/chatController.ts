@@ -1,7 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
+import { getMessages } from "./methods/getMessages";
+import { getAllOfUser } from "./methods/getAllOfUser";
 
 export class ChatController {
-  static async getAll(_req:Request, _res:Response) {}
+  static getAllOfUser = async (req: Request, res: Response) =>
+    getAllOfUser(req, res);
 
-  static async getById(_req:Request, _res:Response) {}
+  static getMessages = async (req: Request, res: Response) =>
+    getMessages(req, res);
 }
