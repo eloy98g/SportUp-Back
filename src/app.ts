@@ -1,4 +1,6 @@
 import express, { Application, json } from "express";
+import http from "http";
+import { Server as SocketServer } from "socket.io";
 
 // Middlewares
 import { corsMiddleware } from "./middlewares/cors";
@@ -13,6 +15,15 @@ import { applicationRouter } from "./routes/applicationRouter";
 
 const app: Application = express();
 export const PORT = process.env.PORT || 1234;
+
+const server = http.createServer(app);
+const io = new SocketServer(server);
+
+
+io.on('connection', (socket) => {
+  console.log('\n\n',socket,'\n\n')
+  console.log('a user connected');
+});
 
 app.use(json());
 app.use(corsMiddleware());
