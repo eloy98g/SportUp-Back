@@ -1,9 +1,10 @@
 import express, { Application, json } from "express";
 import http from "http";
-import { Server as SocketServer } from "socket.io";
+import { Server } from "socket.io";
+import initializeSocket from "./sercices/socket/chatSocket";
 
 // Middlewares
-import { corsMiddleware } from "./middlewares/cors";
+import { ACCEPTED_ORIGINS, corsMiddleware } from "./middlewares/cors";
 
 // Routes
 import { activityRouter } from "./routes/activityRouter";
@@ -17,12 +18,11 @@ const app: Application = express();
 export const PORT = process.env.PORT || 1234;
 
 const server = http.createServer(app);
-const io = new SocketServer(server);
-
-
-io.on('connection', (socket) => {
-  console.log('\n\n',socket,'\n\n')
-  console.log('a user connected');
+const io = new Server(server, {
+  cors: {
+    origin: ACCEPTED_ORIGINS,
+    methods: ["GET", "POST"]
+  }
 });
 
 app.use(json());
@@ -36,6 +36,8 @@ app.use("/chat", chatRouter);
 app.use("/sport", sportRouter);
 app.use("/application", applicationRouter);
 
-app.listen(PORT, () => {
+initializeSocket(io);
+
+server.listen(PORT, () => {
   console.log(`server listening on http://localhost:${PORT}`);
 });
