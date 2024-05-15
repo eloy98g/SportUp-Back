@@ -29,8 +29,6 @@ export async function follow(req: Request, res: Response) {
     );
   }
 
-  console.log(userResult.data, friendResult.data)
-
   const user = await UserModel.follow(userResult.data, friendResult.data);
 
   if (user.result) {

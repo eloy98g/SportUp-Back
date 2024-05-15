@@ -10,6 +10,6 @@ export class ChatController {
   static getMessages = async (req: Request, res: Response) =>
     getMessages(req, res);
 
-  static createMessage = async (chatGid: string, message: any) =>
+  static createMessage = async (chatGid: string | undefined, message: any) =>
     createMessage(chatGid, message);
 }
