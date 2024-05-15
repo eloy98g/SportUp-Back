@@ -13,6 +13,7 @@ import { chatRouter } from "./routes/chatRouter";
 import { sportRouter } from "./routes/sportRouter";
 import { authRouter } from "./routes/authRouter";
 import { applicationRouter } from "./routes/applicationRouter";
+import { confirmationRouter } from "./routes/confirmationRouter";
 
 const app: Application = express();
 export const PORT = process.env.PORT || 1234;
@@ -21,8 +22,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ACCEPTED_ORIGINS,
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
 
 app.use(json());
@@ -35,6 +36,7 @@ app.use("/activity", activityRouter);
 app.use("/chat", chatRouter);
 app.use("/sport", sportRouter);
 app.use("/application", applicationRouter);
+app.use("/confirmation", confirmationRouter);
 
 initializeSocket(io);
 
