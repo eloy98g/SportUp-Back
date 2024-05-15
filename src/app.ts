@@ -1,10 +1,10 @@
 import express, { Application, json } from "express";
 import http from "http";
 import { Server } from "socket.io";
-import CustomSocket from "./types/socket"; 
+import initializeSocket from "./sercices/socket/chatSocket";
 
 // Middlewares
-import { corsMiddleware } from "./middlewares/cors";
+import { ACCEPTED_ORIGINS, corsMiddleware } from "./middlewares/cors";
 
 // Routes
 import { activityRouter } from "./routes/activityRouter";
@@ -20,46 +20,9 @@ export const PORT = process.env.PORT || 1234;
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ACCEPTED_ORIGINS,
     methods: ["GET", "POST"]
   }
-});
-
-io.use((socket: CustomSocket, next) => {
-  const auth = socket.handshake.headers['authorization'];
-  const chat = socket.handshake.headers['chat'];
-
-  if (!auth) {
-    return next(new Error('authentication error'));
-  }
-
-  const gid = auth.split(' ')[1]; // Suponiendo que el token está en el formato "Bearer <token>"
-  const chatGid  = chat
-
-  if (!gid || gid === 'null' || !chatGid) {
-    return next(new Error('invalid gid'));
-  }
-
-  socket.gid = gid
-  socket.chatGid = chatGid
-  next();
-});
-
-io.on('connection', (socket: CustomSocket) => {
-  console.log('a user connected with gid:', socket.gid);
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-  socket.on('message:create', (msg) => {
-    console.log('message: ' + msg);
-    socket.broadcast.emit('message', msg);
-  });
-
-  socket.on('error', (err) => {
-    console.error('Socket error:', err);
-  });
 });
 
 app.use(json());
@@ -72,6 +35,8 @@ app.use("/activity", activityRouter);
 app.use("/chat", chatRouter);
 app.use("/sport", sportRouter);
 app.use("/application", applicationRouter);
+
+initializeSocket(io);
 
 server.listen(PORT, () => {
   console.log(`server listening on http://localhost:${PORT}`);
