@@ -9,7 +9,7 @@ import getPasswordHash from "../../../utils/getPasswordHash";
 export async function newUser(input: any) {
   const email = input.email;
   const password = getPasswordHash(input.password);
-  const creationDate = Math.floor(Date.now() / 1000);
+  const creationDate = Math.floor(Date.now());
   const phoneVerified = false;
   const emailVerified = false;
   const gender = "NS/NC";

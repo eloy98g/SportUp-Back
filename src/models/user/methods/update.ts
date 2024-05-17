@@ -17,34 +17,47 @@ export async function update(gid: string, body: any) {
     args,
   });
 
-  const { latitude, longitude, latitudeDelta, longitudeDelta, radius } =
-    location;
   if (rowsAffected === 0) {
     return {
       result: false,
       message: "No se han podido actualizar los datos del usuario",
     };
   } else {
-    const { rowsAffected: location } = await connection.execute({
-      sql: "UPDATE location_user SET latitude = ?, longitude = ?, latitudeDelta = ?, longitudeDelta = ?,radius = ? WHERE userGid = ?",
-      args: [latitude, longitude, latitudeDelta || null, longitudeDelta || null, radius, gid],
-    });
+    if (location) {
+      const { latitude, longitude, latitudeDelta, longitudeDelta, radius } =
+        location;
+      const { rowsAffected: locationRows } = await connection.execute({
+        sql: "UPDATE location_user SET latitude = ?, longitude = ?, latitudeDelta = ?, longitudeDelta = ?,radius = ? WHERE userGid = ?",
+        args: [
+          latitude,
+          longitude,
+          latitudeDelta || null,
+          longitudeDelta || null,
+          radius,
+          gid,
+        ],
+      });
 
-    if (location === 0) {
-      return {
-        result: false,
-        message:
-          "No se han podido actualizar los datos de la localización del usuario",
-      };
-    } else {
-      const user = await UserModel.getById(gid);
-      if (user) {
-        return { result: true, data: user, message: "" };
+      if (locationRows === 0) {
+        return {
+          result: false,
+          message:
+            "No se han podido actualizar los datos de la localización del usuario",
+        };
+      } else {
+        const user = await UserModel.getById(gid);
+        if (user) {
+          return { result: true, data: user, message: "" };
+        }
+        return {
+          result: false,
+          message: "Error recuperando los datos del usuario",
+        };
       }
-      return {
-        result: false,
-        message: "Error recuperando los datos del usuario",
-      };
     }
   }
+  return  {
+    result: true,
+    message: "Usuario editado correctamente ",
+  };
 }

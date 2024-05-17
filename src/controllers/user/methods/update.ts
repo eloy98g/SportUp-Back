@@ -33,7 +33,8 @@ export async function update(req: Request, res: Response) {
   const user = await UserModel.update(id, result.data);
 
   if (user.result) {
-    return ResponseHandler.handleSuccess(res, user.data);
+    const userData = await UserModel.getById(id);
+    return ResponseHandler.handleSuccess(res, userData);
   }else{
 
     return ResponseHandler.handleNotFound(res, user.message);
