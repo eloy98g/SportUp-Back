@@ -27,9 +27,9 @@ export async function create(input: any) {
     };
   }
   const gid = uuidv4();
-
-  const sql = `INSERT INTO activity_review (gid, activityGid, rating, comment, reviewedBy) values (?,?,?,?,?)`;
-  const args: string[] = [gid, activityGid, rating, comment, reviewedBy];
+  const date = Date.now()
+  const sql = `INSERT INTO activity_review (gid, activityGid, rating, comment, reviewedBy, createdAt) values (?,?,?,?,?,?)`;
+  const args: string[] = [gid, activityGid, rating, comment, reviewedBy, date];
   const { rowsAffected } = await connection.execute({ sql, args });
 
   if (rowsAffected === 0) {
