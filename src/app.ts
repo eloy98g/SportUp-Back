@@ -15,6 +15,7 @@ import { authRouter } from "./routes/authRouter";
 import { applicationRouter } from "./routes/applicationRouter";
 import { confirmationRouter } from "./routes/confirmationRouter";
 import { reportRouter } from "./routes/reportRouter";
+import { reviewRouter } from "./routes/reviewRouter";
 
 const app: Application = express();
 export const PORT = process.env.PORT || 1234;
@@ -39,6 +40,7 @@ app.use("/sport", sportRouter);
 app.use("/application", applicationRouter);
 app.use("/confirmation", confirmationRouter);
 app.use("/report", reportRouter);
+app.use("/review", reviewRouter);
 
 initializeSocket(io);
 

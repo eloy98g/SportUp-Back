@@ -5,9 +5,9 @@ import reportReasonExists from "../utils/reportReasonExists";
 export async function createReport(input: any) {
   const { reportReason = null, reportedBy = null, userGid = null } = input;
 
-  const reasonExists = reportReasonExists(reportReason);
-  const userExists = userExistsByGid(userGid);
-  const reportedExists = userExistsByGid(reportedBy);
+  const reasonExists = await reportReasonExists(reportReason);
+  const userExists = await userExistsByGid(userGid);
+  const reportedExists = await userExistsByGid(reportedBy);
 
   if (!reasonExists) {
     return {
