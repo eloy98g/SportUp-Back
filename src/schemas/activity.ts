@@ -55,6 +55,7 @@ const editSchema = z.object({
   access: AccessEnum.optional(),
   description: z.string().optional(),
   name: z.string().optional(),
+  status: StatusEnum.optional()
 });
 
 export function validateEditActivity(input: any) {
