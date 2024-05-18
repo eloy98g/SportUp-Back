@@ -1,9 +1,16 @@
 import { z } from "zod";
 
-const applicationSchema = z.object({
+const activitySchema = z.object({
   activityGid: z.string(),
   userGid: z.string(),
 });
+
+const codeSchema = z.object({
+  code: z.string(),
+  userGid: z.string(),
+});
+
+const applicationSchema = z.union([activitySchema, codeSchema]);
 
 export function validateApplication(input: any) {
   return applicationSchema.safeParse(input);
@@ -12,7 +19,7 @@ export function validateApplication(input: any) {
 const responseEnum = z.enum(["accepted", "rejected"]);
 
 const applicationResponse = z.object({
-  response: responseEnum
+  response: responseEnum,
 });
 
 export function validateApplicationResponse(input: any) {
