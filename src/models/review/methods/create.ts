@@ -2,6 +2,7 @@ import activityExists from "../../../utils/validations/activityExists";
 import userExistsByGid from "../../../utils/validations/userExistsByGid";
 import { connection } from "../../dbConnection";
 import { v4 as uuidv4 } from "uuid";
+import userAlreadyReviewd from "../utils/userAlreadyReviewed";
 
 export async function create(input: any) {
   const {
@@ -26,8 +27,34 @@ export async function create(input: any) {
       data: [],
     };
   }
+
+  const userPromises = users.map(async (user: string) => {
+    const userExists = await userExistsByGid(user);
+
+    if (!userExists) {
+      throw new Error(`El usuario con id ${user} no existe.`);
+    }
+    const userReviewed = await userAlreadyReviewd(
+      user,
+      reviewedBy,
+      activityGid
+    );
+
+    if (userReviewed) {
+      throw new Error(
+        `Estás intentando valorar a un usuario al que ya has valorado`
+      );
+    }
+  });
+
+  try {
+    await Promise.all(userPromises);
+  } catch (error: any) {
+    return { result: false, message: error.message, data: [] };
+  }
+
   const gid = uuidv4();
-  const date = Date.now()
+  const date = Date.now();
   const sql = `INSERT INTO activity_review (gid, activityGid, rating, comment, reviewedBy, createdAt) values (?,?,?,?,?,?)`;
   const args: string[] = [gid, activityGid, rating, comment, reviewedBy, date];
   const { rowsAffected } = await connection.execute({ sql, args });
@@ -48,9 +75,8 @@ export async function create(input: any) {
     try {
       await Promise.all(userPromises);
     } catch (error: any) {
-      return { result: true, message: error.message, data: [] };
+      return { result: false, message: error.message, data: [] };
     }
     return { result: true, message: "Review creada con éxito", data: [] };
   }
-  
 }
