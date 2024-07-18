@@ -76,8 +76,8 @@ export async function create(input: any) {
 		if (joinResult.result) {
 			return {
 				...joinResult,
-				data: activityGid,
-				message: "automatic",
+				data: { activityGid, joinType: "automatic" },
+				message: "",
 			};
 		} else {
 			return { ...joinResult, data: "" };
@@ -85,8 +85,8 @@ export async function create(input: any) {
 	} else {
 		return {
 			result: true,
-			data: activityGid,
-			message: "administrated",
+			data: { activityGid, joinType: "administrated" },
+			message: "",
 		};
 	}
 }
