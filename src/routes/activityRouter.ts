@@ -19,8 +19,8 @@ export const activityRouter = Router();
  *     tags: [Activity]
  *     parameters:
  *       - name: id
- *         in: query
- *         required: false
+ *         in: path
+ *         required: true
  *         description: ID of the activity
  *         schema:
  *           type: string
