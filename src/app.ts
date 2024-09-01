@@ -35,12 +35,16 @@ const swaggerOptions = {
 		openapi: "3.0.0",
 		info: {
 			title: "Sport Up API Documentation",
-			version: "0.0.1",
+			version: "1.0.0",
 			description: "Sport Up API Information",
 			contact: {
 				name: "Eloy Gómez García",
 			},
-			servers: [{ url: `http://localhost:${PORT}` }],
+			servers: [
+				{
+					url: `http://localhost:${PORT}`,
+				},
+			],
 		},
 	},
 	apis: ["./src/routes/*.ts"],
