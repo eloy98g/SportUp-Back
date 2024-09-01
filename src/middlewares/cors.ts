@@ -6,6 +6,7 @@ export const ACCEPTED_ORIGINS = [
 	process.env.DOMAIN_DEV || "",
 	process.env.DOMAIN_PROD || "",
 	process.env.DOMAIN_WEBAPP || "",
+	process.env.DOMAIN_WEBAPP_2 || "",
 ];
 
 export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
